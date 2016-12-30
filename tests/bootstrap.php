@@ -12,6 +12,7 @@ define('TESTS_DIR',  __DIR__);
 
 $loader = new Nette\Loaders\RobotLoader;
 $loader->addDirectory(__DIR__ . '/../src');
+$loader->addDirectory(TESTS_DIR . '/Mocks');
 $loader->setCacheStorage(new Nette\Caching\Storages\FileStorage(__DIR__ . '/tmp'));
 $loader->register();
 

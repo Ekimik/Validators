@@ -2,7 +2,7 @@
 
 namespace Ekimik\Validators\Tests;
 
-use \Ekimik\Validators\ScoreValidator;
+use \Ekimik\Validators\Score;
 
 /**
  * Testcase for score validator
@@ -10,40 +10,38 @@ use \Ekimik\Validators\ScoreValidator;
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik
  */
-class ScoreValidatorTest extends \PHPUnit_Framework_TestCase {
+class ScoreTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers ScoreValidator::validate
      */
     public function testValidate() {
-        $validator = new ScoreValidator('1-1');
+        $validator = new Score('1-1');
         $this->assertTrue($validator->validate());
 
-        $validator = new ScoreValidator('15-49');
+        $validator = new Score('15-49');
         $this->assertTrue($validator->validate());
 
-        $validator = new ScoreValidator('5:1', TRUE, ':');
+        $validator = new Score('5:1', TRUE, ':');
+        $validator->configureValidator(['separator' => ':']);
         $this->assertTrue($validator->validate());
 
-        $validator = new ScoreValidator('', FALSE);
+        $validator = new Score('', FALSE);
         $this->assertTrue($validator->validate());
 
-        $validator = new ScoreValidator('1-');
+        $validator = new Score('1-');
         $this->assertFalse($validator->validate());
 
-        $validator = new ScoreValidator('15-101');
+        $validator = new Score('15-101');
         $this->assertFalse($validator->validate());
 
-        $validator = new ScoreValidator(1);
+        $validator = new Score(1);
         $this->assertFalse($validator->validate());
 
-        $validator = new ScoreValidator(['1-1']);
+        $validator = new Score('1:1');
         $this->assertFalse($validator->validate());
 
-        $validator = new ScoreValidator('1:1');
-        $this->assertFalse($validator->validate());
-
-        $validator = new ScoreValidator();
+        $validator = new Score();
         $this->assertFalse($validator->validate());
     }
 

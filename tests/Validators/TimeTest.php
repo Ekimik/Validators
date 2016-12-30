@@ -2,7 +2,7 @@
 
 namespace Ekimik\Validators\Tests;
 
-use \Ekimik\Validators\TimeValidator;
+use \Ekimik\Validators\Time;
 
 /**
  * Testcase for time validator
@@ -10,46 +10,49 @@ use \Ekimik\Validators\TimeValidator;
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik
  */
-class TimeValidatorTest extends \PHPUnit_Framework_TestCase {
+class TimeTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @covers TimeValidator::validator()
+     * @covers TimeValidator::validator
      */
     public function testValidate() {
-        $validator = new TimeValidator('15:00');
+        $validator = new Time('15:00');
         $this->assertTrue($validator->validate());
 
-        $validator = new TimeValidator('14:00:00');
+        $validator = new Time('14:00:00');
         $this->assertTrue($validator->validate());
 
-        $validator = new TimeValidator('17:30:20');
+        $validator = new Time('17:30:20');
         $this->assertTrue($validator->validate());
 
-        $validator = new TimeValidator('17-30-20', TRUE, '-');
+        $validator = new Time('17-30-20', TRUE);
+        $validator->configureValidator(['separator' => '-']);
         $this->assertTrue($validator->validate());
 
-        $validator = new TimeValidator('17-30-20', TRUE, '-');
+        $validator = new Time('17-30-20', TRUE);
+        $validator->configureValidator(['separator' => '-']);
         $this->assertTrue($validator->validate());
 
-        $validator = new TimeValidator(NULL, FALSE);
+        $validator = new Time(NULL, FALSE);
         $this->assertTrue($validator->validate());
 
-        $validator = new TimeValidator('abc');
+        $validator = new Time('abc');
         $this->assertFalse($validator->validate());
 
-        $validator = new TimeValidator('abc:def');
+        $validator = new Time('abc:def');
         $this->assertFalse($validator->validate());
 
-        $validator = new TimeValidator('11:00-10', FALSE, '-');
+        $validator = new Time('11:00-10', FALSE);
+        $validator->configureValidator(['separator' => '-']);
         $this->assertFalse($validator->validate());
 
-        $validator = new TimeValidator('11:00:101');
+        $validator = new Time('11:00:101');
         $this->assertFalse($validator->validate());
 
-        $validator = new TimeValidator(123);
+        $validator = new Time(123);
         $this->assertFalse($validator->validate());
 
-        $validator = new TimeValidator();
+        $validator = new Time();
         $this->assertFalse($validator->validate());
     }
 

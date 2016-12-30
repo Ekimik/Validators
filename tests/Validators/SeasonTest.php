@@ -2,7 +2,7 @@
 
 namespace Ekimik\Validators\Tests;
 
-use \Ekimik\Validators\SeasonValidator;
+use \Ekimik\Validators\Season;
 
 /**
  * Testcase for season validator
@@ -16,34 +16,36 @@ class SeasonValidatorTest extends \PHPUnit_Framework_TestCase {
      * @covers SeasonValidator::validate
      */
     public function testValidate() {
-        $validator = new SeasonValidator('2015/2016');
+        $validator = new Season('2015/2016');
         $this->assertTrue($validator->validate());
 
-        $validator = new SeasonValidator('2016-2017', FALSE, '-');
+        $validator = new Season('2016-2017', FALSE, '-');
+        $validator->configureValidator(['separator' => '-']);
         $this->assertTrue($validator->validate());
 
-        $validator = new SeasonValidator('', FALSE, '-');
+        $validator = new Season('', FALSE, '-');
+        $validator->configureValidator(['separator' => '-']);
         $this->assertTrue($validator->validate());
 
-        $validator = new SeasonValidator('2015-2016');
+        $validator = new Season('2015-2016');
         $this->assertFalse($validator->validate());
 
-        $validator = new SeasonValidator('2015/2014');
+        $validator = new Season('2015/2014');
         $this->assertFalse($validator->validate());
 
-        $validator = new SeasonValidator('2017/2017');
+        $validator = new Season('2017/2017');
         $this->assertFalse($validator->validate());
 
-        $validator = new SeasonValidator('2017/2020');
+        $validator = new Season('2017/2020');
         $this->assertFalse($validator->validate());
 
-        $validator = new SeasonValidator(2017);
+        $validator = new Season(2017);
         $this->assertFalse($validator->validate());
 
-        $validator = new SeasonValidator('2016', TRUE);
+        $validator = new Season('2016', TRUE);
         $this->assertFalse($validator->validate());
 
-        $validator = new SeasonValidator();
+        $validator = new Season();
         $this->assertFalse($validator->validate());
     }
 

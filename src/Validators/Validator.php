@@ -2,13 +2,15 @@
 
 namespace Ekimik\Validators;
 
+use \Nette\Object;
+
 /**
  * Base validator
  *
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik/Validators
  */
-class Validator implements IValidator {
+class Validator extends Object implements IValidator {
 
     /**
      * @var mixed
@@ -24,9 +26,24 @@ class Validator implements IValidator {
      * @param mixed $val
      * @param boolean $isRequired
      */
-    public function __construct($val = NULL, $isRequired = TRUE) {
+    public function __construct($val = NULL, bool $isRequired = TRUE) {
         $this->setValueToValidate($val);
         $this->setRequired($isRequired);
+    }
+
+    /**
+     * Set config options, assumes every option has appropriate property on validator
+     * or its parents
+     * @param array $configOptions
+     */
+    public function configureValidator(array $configOptions) {
+        foreach ($configOptions as $option => $value) {
+            if (in_array($option, ['valueToValidate', 'valueRequired'])) {
+                continue;
+            }
+
+            $this->$option = $value;
+        }
     }
 
     /**
@@ -36,17 +53,11 @@ class Validator implements IValidator {
         $this->valueToValidate = $val;
     }
 
-    /**
-     * @param boolean $req
-     */
-    public function setRequired($req) {
-        $this->valueRequired = (boolean) $req;
+    public function setRequired(bool $req) {
+        $this->valueRequired = $req;
     }
 
-    /**
-     * @return boolean
-     */
-    public function isValueRequired() {
+    public function isValueRequired(): bool {
         return $this->valueRequired;
     }
 
@@ -57,24 +68,17 @@ class Validator implements IValidator {
         return $this->valueToValidate;
     }
 
-    /**
-     * @return boolean
-     */
-    public function validate() {
-        $val = $this->getValueToValidate();
-        if ($this->isValueRequired() && empty($val)) {
+    public function validate(): bool {
+        if ($this->isValueRequired() && $this->isEmptyValue()) {
             return FALSE;
+        } else if (!$this->isEmptyValue()) {
+            return $this->validateValue();
         }
 
         return TRUE;
     }
 
-    /**
-     * @param array $parts
-     * @param int $partsExpectedCount
-     * @return boolean
-     */
-    public function isNumericPartsValid(Array $parts, $partsExpectedCount) {
+    public function isNumericPartsValid(array $parts, int $partsExpectedCount): bool {
         if (count($parts) !== $partsExpectedCount) {
             return FALSE;
         }
@@ -85,6 +89,14 @@ class Validator implements IValidator {
             }
         }
 
+        return TRUE;
+    }
+
+    protected function isEmptyValue(): bool {
+        return empty($this->getValueToValidate());
+    }
+
+    protected function validateValue(): bool {
         return TRUE;
     }
 

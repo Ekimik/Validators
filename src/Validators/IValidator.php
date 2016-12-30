@@ -10,6 +10,5 @@ namespace Ekimik\Validators;
  */
 interface IValidator {
 
-    public function validate();
-    
+    public function validate(): bool;
 }

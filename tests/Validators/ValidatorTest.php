@@ -2,18 +2,19 @@
 
 namespace Ekimik\Validators\Tests;
 
-use \Ekimik\Validators\Validator;
+use \Ekimik\Validators\Validator,
+    \Ekimik\Validators\Tests\Mocks\MockValidator;
 
 /**
  * Test case for base validator
  *
  * @author Jan Jíša <j.jisa@seznam.cz>
- * @package Ekimik
+ * @package Ekimik\Validators
  */
 class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @covers Validator::isNumericPartsValid()
+     * @covers Validator::isNumericPartsValid
      */
     public function testIsNumericPartsValid() {
         $validator = new Validator();
@@ -55,6 +56,24 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
         $validator = new Validator([]);
         $this->assertFalse($validator->validate());
+    }
+
+    /**
+     * @covers Validator::configureValidator
+     */
+    public function testConfigureValidator() {
+        $validator = new MockValidator('foo');
+
+        $validator->configureValidator(['foo' => 'foobar', 'bar' => 'barbar']);
+        $this->assertEquals('foobar', $validator->getFoo());
+        $this->assertEquals('barbar', $validator->getBar());
+
+        try {
+            $validator->configureValidator(['unknownOption' => 'trololol']);
+            $this->fail('MemberAccessException expected, but nothing happens');
+        } catch (\Nette\MemberAccessException $e) {
+            // correct
+        }
     }
 
 }

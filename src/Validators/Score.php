@@ -8,24 +8,19 @@ namespace Ekimik\Validators;
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik/Validators
  */
-class ScoreValidator extends StringWithSeparatorValidator {
+class Score extends StringWithSeparator {
 
     protected $separator = '-';
 
-    /**
-     * @return boolean
-     */
-    public function validate() {
-        $result = parent::validate();
+    protected function validateValue(): bool {
+        $result = parent::validateValue();
         if ($result === FALSE) {
-            return $result;
+            return FALSE;
         }
 
         $val = $this->getValueToValidate();
-        if ($this->isValueRequired() || !empty($val)) {
-            $scoreParts = explode($this->separator, $val);
-            $result = $this->isScorePartsValid($scoreParts);
-        }
+        $scoreParts = explode($this->separator, $val);
+        $result = $this->isScorePartsValid($scoreParts);
 
         return $result;
     }

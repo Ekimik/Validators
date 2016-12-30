@@ -2,7 +2,7 @@
 
 namespace Ekimik\Validators\Tests;
 
-use \Ekimik\Validators\StringValidator;
+use \Ekimik\Validators\StringBase;
 
 /**
  * Testcase for string validator
@@ -10,31 +10,34 @@ use \Ekimik\Validators\StringValidator;
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package \Ekimik
  */
-class StringValidatorTest extends \PHPUnit_Framework_TestCase {
+class StringBaseTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers StringValidator::validate
      */
     public function testValidate() {
-        $validator = new StringValidator('Foobar');
+        $validator = new StringBase('Foobar');
         $this->assertTrue($validator->validate());
 
-        $validator = new StringValidator('1.A třída (muži) - kraj Vysočina');
+        $validator = new StringBase('1.A třída (muži) - kraj Vysočina');
         $this->assertTrue($validator->validate());
 
-        $validator = new StringValidator('Příliš žluťoučký kůň');
+        $validator = new StringBase('Příliš žluťoučký kůň');
         $this->assertTrue($validator->validate());
 
-        $validator = new StringValidator(NULL, FALSE);
+        $validator = new StringBase(NULL, FALSE);
         $this->assertTrue($validator->validate());
 
-        $validator = new StringValidator(1);
+        $validator = new StringBase(1);
         $this->assertFalse($validator->validate());
 
-        $validator = new StringValidator(['barbar']);
+        $validator = new StringBase(['barbar']);
         $this->assertFalse($validator->validate());
 
-        $validator = new StringValidator();
+        $validator = new StringBase();
+        $this->assertFalse($validator->validate());
+
+        $validator = new StringBase('<? php echo 1; ?>');
         $this->assertFalse($validator->validate());
     }
 }
