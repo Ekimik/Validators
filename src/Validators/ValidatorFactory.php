@@ -45,7 +45,6 @@ class ValidatorFactory {
         } else if ($normalizedName === self::VALIDATOR_URL) {
             $validator = new Url();
         } else if ($normalizedName === self::VALIDATOR_CSS_SELECTOR) {
-            var_dump('fff');
             $validator = new CssSelector();
         } else {
             $validator = new Validator();
