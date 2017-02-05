@@ -13,8 +13,8 @@
     },
     "require": {
         "php": ">= 7",
-        "nette/utils": "2.4.1",
-        "nette/robot-loader": "2.4.1",
-        "phpunit/phpunit": "5.7.2"
+        "nette/utils": "^2.4.0",
+        "nette/robot-loader": "^2.4.0",
+        "phpunit/phpunit": "^5.7.0"
     }
 }
