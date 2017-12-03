@@ -5,7 +5,7 @@
  * @author Jan Jíša <j.jisa@seznam.cz>
  */
 
-require __DIR__ . '/../libs/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 // app base directory
 define('TESTS_DIR',  __DIR__);
