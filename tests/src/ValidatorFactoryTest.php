@@ -66,10 +66,14 @@ class ValidatorFactoryTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($validator->isValueRequired());
         $this->assertEquals('#container', $validator->getValueToValidate());
 
-	$validator = $factory->getValidator(ValidatorFactory::VALIDATOR_ENUM, 'foo', TRUE, ['availableOptions' => 'foo', 'bar']);
+	$validator = $factory->getValidator(ValidatorFactory::VALIDATOR_ENUM, 'foo', TRUE, ['availableOptions' => ['foo', 'bar']]);
         $this->assertInstanceOf(Validators\Enum::class, $validator);
         $this->assertTrue($validator->isValueRequired());
         $this->assertEquals('foo', $validator->getValueToValidate());
+
+	$validator = $factory->getValidator(ValidatorFactory::VALIDATOR_DATA_TYPE, 'foobar', TRUE, ['expectedType' => 'string']);
+        $this->assertInstanceOf(Validators\DataType::class, $validator);
+        $this->assertEquals('foobar', $validator->getValueToValidate());
     }
 
 }

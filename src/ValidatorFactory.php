@@ -19,6 +19,7 @@ class ValidatorFactory {
     const VALIDATOR_URL = 'url';
     const VALIDATOR_CSS_SELECTOR = 'css-selector';
     const VALIDATOR_ENUM = 'enum';
+    const VALIDATOR_DATA_TYPE = 'data-type';
 
     /**
      * @param string $name
@@ -49,6 +50,8 @@ class ValidatorFactory {
             $validator = new CssSelector();
         } else if ($normalizedName === self::VALIDATOR_ENUM) {
             $validator = new Enum();
+        } else if ($normalizedName === self::VALIDATOR_DATA_TYPE) {
+            $validator = new DataType();
         } else {
             $validator = new Validator();
         }
