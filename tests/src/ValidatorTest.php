@@ -2,8 +2,8 @@
 
 namespace Ekimik\Validators\Tests;
 
-use \Ekimik\Validators\Validator,
-    \Ekimik\Validators\Tests\Mocks\MockValidator;
+use \Ekimik\Validators\Validator;
+use \Ekimik\Validators\Tests\Mocks\MockValidator;
 
 /**
  * Test case for base validator
