@@ -1,6 +1,7 @@
 {
     "name": "ekimik/validators",
     "description": "Simple bundle of validators for different usecases.",
+    "license": "Mozilla Public License 2.0",
     "authors": [
         {
             "name": "Jan Jíša",
