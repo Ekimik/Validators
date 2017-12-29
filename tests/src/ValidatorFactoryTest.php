@@ -74,6 +74,10 @@ class ValidatorFactoryTest extends \PHPUnit_Framework_TestCase {
 	$validator = $factory->getValidator(ValidatorFactory::VALIDATOR_DATA_TYPE, 'foobar', TRUE, ['expectedType' => 'string']);
         $this->assertInstanceOf(Validators\DataType::class, $validator);
         $this->assertEquals('foobar', $validator->getValueToValidate());
+
+	$validator = $factory->getValidator(ValidatorFactory::VALIDATOR_EMAL, 'barbar');
+        $this->assertInstanceOf(Validators\Email::class, $validator);
+        $this->assertEquals('barbar', $validator->getValueToValidate());
     }
 
 }

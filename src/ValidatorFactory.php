@@ -20,6 +20,7 @@ class ValidatorFactory {
     const VALIDATOR_CSS_SELECTOR = 'css-selector';
     const VALIDATOR_ENUM = 'enum';
     const VALIDATOR_DATA_TYPE = 'data-type';
+    const VALIDATOR_EMAL = 'email';
 
     /**
      * @param string $name
@@ -52,11 +53,13 @@ class ValidatorFactory {
             $validator = new Enum();
         } else if ($normalizedName === self::VALIDATOR_DATA_TYPE) {
             $validator = new DataType();
-        } else {
-            $validator = new Validator();
-        }
+	} else if ($normalizedName === self::VALIDATOR_EMAL) {
+	    $validator = new Email();
+	} else {
+	    $validator = new Validator();
+	}
 
-        $validator->setValueToValidate($valueToValidate);
+	$validator->setValueToValidate($valueToValidate);
         $validator->setRequired($valueRequired);
         $validator->configureValidator($cfgOpts);
 
