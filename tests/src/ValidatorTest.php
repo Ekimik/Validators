@@ -69,8 +69,8 @@ class ValidatorTest extends \PHPUnit_Framework_TestCase {
 
 	try {
 	    $validator->configureValidator(['unknownOption' => 'trololol']);
-	    $this->fail('MemberAccessException expected, but nothing happens');
-	} catch (\Nette\MemberAccessException $e) {
+	    $this->fail('InvalidArgumentException expected, but nothing happens');
+	} catch (\InvalidArgumentException $e) {
 	    // correct
 	}
     }

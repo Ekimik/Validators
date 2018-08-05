@@ -2,15 +2,13 @@
 
 namespace Ekimik\Validators;
 
-use \Nette\Object;
-
 /**
  * Base validator
  *
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik/Validators
  */
-class Validator extends Object implements IValidator {
+class Validator implements IValidator {
 
     /**
      * @var mixed
@@ -41,6 +39,10 @@ class Validator extends Object implements IValidator {
             if (in_array($option, ['valueToValidate', 'valueRequired'])) {
                 continue;
             }
+
+	    if (!property_exists($this, $option)) {
+		throw new \InvalidArgumentException("Unknown option '{$option}'");
+	    }
 
             $this->$option = $value;
         }
