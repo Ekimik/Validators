@@ -2,14 +2,14 @@
 
 namespace Ekimik\Validators\Tests;
 
-use \Ekimik\Validators\ValidatorFactory,
-    \Ekimik\Validators;
+use \Ekimik\Validators\ValidatorFactory;
+use \Ekimik\Validators;
 
 /**
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik\Validators
  */
-class ValidatorFactoryTest extends \PHPUnit_Framework_TestCase {
+class ValidatorFactoryTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @covers ValidatorFactory::getValidator

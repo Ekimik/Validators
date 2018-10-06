@@ -8,7 +8,7 @@ use \Ekimik\Validators\StringBase;
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package \Ekimik
  */
-class StringBaseTest extends \PHPUnit_Framework_TestCase {
+class StringBaseTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @covers StringValidator::validate

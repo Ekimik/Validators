@@ -8,7 +8,7 @@ use \Ekimik\Validators\Boolean;
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik\Validators
  */
-class BooleanTest extends \PHPUnit_Framework_TestCase {
+class BooleanTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @covers BooleanValidator::validate

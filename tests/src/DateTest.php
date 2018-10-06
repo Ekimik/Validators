@@ -8,7 +8,7 @@ use \Ekimik\Validators\Date;
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik\Validators
  */
-class DateTest extends \PHPUnit_Framework_TestCase {
+class DateTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @covers Date::validate

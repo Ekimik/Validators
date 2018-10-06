@@ -8,7 +8,7 @@ use \Ekimik\Validators\Enum;
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package  Ekimik\Validators
  */
-class EnumTest extends \PHPUnit_Framework_TestCase {
+class EnumTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @covers Enum::validate

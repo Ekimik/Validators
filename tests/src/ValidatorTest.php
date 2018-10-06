@@ -8,7 +8,7 @@ use \Ekimik\Validators\Validator;
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik\Validators
  */
-class ValidatorTest extends \PHPUnit_Framework_TestCase {
+class ValidatorTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @covers Validator::validate

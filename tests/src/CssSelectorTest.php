@@ -8,7 +8,7 @@ use \Ekimik\Validators\CssSelector;
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik\Validators
  */
-class CssSelectorTest extends \PHPUnit_Framework_TestCase {
+class CssSelectorTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @covers CssSelector::validate

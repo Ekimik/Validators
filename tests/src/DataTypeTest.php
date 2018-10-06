@@ -8,7 +8,7 @@ use \Ekimik\Validators\DataType;
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik\Validators
  */
-class DataTypeTest extends \PHPUnit_Framework_TestCase {
+class DataTypeTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @covers DataType::validate

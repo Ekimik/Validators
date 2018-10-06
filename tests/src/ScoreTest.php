@@ -8,7 +8,7 @@ use \Ekimik\Validators\Score;
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik
  */
-class ScoreTest extends \PHPUnit_Framework_TestCase {
+class ScoreTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @covers ScoreValidator::validate

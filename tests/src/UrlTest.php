@@ -8,7 +8,7 @@ use \Ekimik\Validators\Url;
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik\Validators
  */
-class UrlTest extends \PHPUnit_Framework_TestCase {
+class UrlTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @covers Url::validate

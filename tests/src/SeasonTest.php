@@ -8,7 +8,7 @@ use \Ekimik\Validators\Season;
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik
  */
-class SeasonValidatorTest extends \PHPUnit_Framework_TestCase {
+class SeasonValidatorTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @covers SeasonValidator::validate

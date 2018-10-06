@@ -8,7 +8,7 @@ use Ekimik\Validators\Email;
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik\Validators
  */
-class EmailTest extends \PHPUnit_Framework_TestCase {
+class EmailTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @covers Email

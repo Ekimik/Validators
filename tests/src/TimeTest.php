@@ -8,7 +8,7 @@ use \Ekimik\Validators\Time;
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik
  */
-class TimeTest extends \PHPUnit_Framework_TestCase {
+class TimeTest extends \PHPUnit\Framework\TestCase {
 
     /**
      * @covers TimeValidator::validator
