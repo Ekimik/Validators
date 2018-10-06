@@ -14,31 +14,28 @@ class DataTypeTest extends \PHPUnit_Framework_TestCase {
      * @covers DataType::validate
      */
     public function testValidate() {
-	$validator = new DataType('foo');
-	$validator->setExpectedType('string');
+	$validator = new DataType('foo', [DataType::OPTION_DATA_TYPE => 'string']);
 	$this->assertTrue($validator->validate());
 
-	$validator->setExpectedType('int');
+	$validator = new DataType('foo', [DataType::OPTION_DATA_TYPE => 'int']);
 	$this->assertFalse($validator->validate());
 
-	$validator = new DataType('123');
-	$validator->setExpectedType('integer');
-	$this->assertTrue($validator->validate());
-	$validator->setExpectedType('float');
+	$validator = new DataType('123', [DataType::OPTION_DATA_TYPE => 'integer']);
 	$this->assertTrue($validator->validate());
 
-	$validator = new DataType('123.2');
-	$validator->setExpectedType('integer');
+	$validator = new DataType('123', [DataType::OPTION_DATA_TYPE => 'float']);
+	$this->assertTrue($validator->validate());
+
+	$validator = new DataType('123.2', [DataType::OPTION_DATA_TYPE => 'integer']);
 	$this->assertFalse($validator->validate());
 
-	$validator = new DataType(456);
-	$validator->setExpectedType('float');
+	$validator = new DataType(456, [DataType::OPTION_DATA_TYPE => 'float']);
 	$this->assertTrue($validator->validate());
 
-	$validator = new DataType(FALSE);
-	$validator->setExpectedType('bool');
+	$validator = new DataType(FALSE, [DataType::OPTION_DATA_TYPE => 'bool']);
 	$this->assertTrue($validator->validate());
-	$validator->setExpectedType('array');
+
+	$validator = new DataType(FALSE, [DataType::OPTION_DATA_TYPE => 'array']);
 	$this->assertFalse($validator->validate());
     }
 

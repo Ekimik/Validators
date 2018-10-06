@@ -17,17 +17,16 @@ class UrlTest extends \PHPUnit_Framework_TestCase {
         $validator = new Url('foo');
         $this->assertFalse($validator->validate());
 
-        $validator = new Url('foo', FALSE);
+        $validator = new Url('foo', [Url::OPTION_REQUIRED => FALSE]);
         $this->assertFalse($validator->validate());
 
-        $validator = new Url(NULL, FALSE);
+        $validator = new Url(NULL, [Url::OPTION_REQUIRED => FALSE]);
         $this->assertTrue($validator->validate());
 
         $validator = new Url('http://www.example.com');
         $this->assertTrue($validator->validate());
 
-        $validator = new Url('www.example.com');
-        $validator->configureValidator(['fullyQualifiedOnly' => FALSE]);
+        $validator = new Url('www.example.com', [Url::OPTION_FULLY_QUALIFIED => FALSE]);
         $this->assertTrue($validator->validate());
 
         $validator = new Url('www.example.com');

@@ -3,14 +3,10 @@
 namespace Ekimik\Validators;
 
 /**
- * Validator for score
- *
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik/Validators
  */
 class Score extends StringWithSeparator {
-
-    protected $separator = '-';
 
     protected function validateValue(): bool {
         $result = parent::validateValue();
@@ -19,29 +15,35 @@ class Score extends StringWithSeparator {
         }
 
         $val = $this->getValueToValidate();
-        $scoreParts = explode($this->separator, $val);
-        $result = $this->isScorePartsValid($scoreParts);
+	$separator = $this->getOption(self::OPTION_SEPARATOR);
+        $scoreParts = explode($separator, $val);
+        return $this->isScorePartsValid($scoreParts);
+    }
 
-        return $result;
+    protected function getDefaultOptions(): array {
+	$options = parent::getDefaultOptions();
+	$options[self::OPTION_SEPARATOR] = '-';
+
+	return $options;
     }
 
     /**
      * @param array $parts
      * @return boolean
      */
-    protected function isScorePartsValid(Array $parts) {
-        $isValid = $this->isNumericPartsValid($parts, 2);
-        if (!$isValid) {
-            return $isValid;
-        }
+    private function isScorePartsValid(Array $parts) {
+	$isValid = $this->isNumericPartsValid($parts, 2);
+	if (!$isValid) {
+	    return $isValid;
+	}
 
-        $homeScore = $parts[0];
-        $awayScore = $parts[1];
-        if ($homeScore >= 0 && $homeScore < 50 && $awayScore >= 0 && $awayScore < 50) {
-            return TRUE;
-        }
+	$homeScore = $parts[0];
+	$awayScore = $parts[1];
+	if ($homeScore >= 0 && $homeScore < 50 && $awayScore >= 0 && $awayScore < 50) {
+	    return TRUE;
+	}
 
-        return FALSE;
+	return FALSE;
     }
 
 }

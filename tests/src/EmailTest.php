@@ -17,10 +17,10 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 	$validator = new Email('foo');
 	$this->assertFalse($validator->validate());
 
-	$validator = new Email(NULL, FALSE);
+	$validator = new Email(NULL, [Email::OPTION_REQUIRED => FALSE]);
 	$this->assertTrue($validator->validate());
 
-	$validator = new Email('john.doe@email.cz', FALSE);
+	$validator = new Email('john.doe@email.cz', [Email::OPTION_REQUIRED => FALSE]);
 	$this->assertTrue($validator->validate());
     }
 

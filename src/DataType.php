@@ -10,24 +10,11 @@ use \Nette\Utils\Validators;
  */
 class DataType extends Validator {
 
-    protected $expectedType;
-
-    public function getExpectedType() {
-	return $this->expectedType;
-    }
-
-    public function setExpectedType($expectedType) {
-	$this->expectedType = $expectedType;
-	return $this;
-    }
-
-    public function isValueRequired(): bool {
-	return FALSE;
-    }
+    const OPTION_DATA_TYPE = 'dataType';
 
     protected function validateValue(): bool {
 	$value = $this->getValueToValidate();
-	$expectedType = $this->getExpectedType();
+	$expectedType = $this->getOption(self::OPTION_DATA_TYPE);
 	if (empty($expectedType)) {
 	    throw new \LogicException('You have to configure expected data type');
 	}
@@ -46,6 +33,10 @@ class DataType extends Validator {
     }
 
     protected function isEmptyValue(): bool {
+	return FALSE;
+    }
+    
+        protected function isValueRequired(): bool {
 	return FALSE;
     }
 

@@ -17,8 +17,8 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
         $validator = new Boolean(TRUE);
         $this->assertTrue($validator->validate());
 
-        $validator = new Boolean(FALSE, FALSE);
-        $this->assertTrue($validator->validate());
+	$validator = new Boolean(FALSE, [Boolean::OPTION_REQUIRED => FALSE]);
+	$this->assertTrue($validator->validate());
 
         $validator = new Boolean(1);
         $this->assertTrue($validator->validate());
@@ -32,7 +32,7 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
         $validator = new Boolean('0');
         $this->assertTrue($validator->validate());
 
-        $validator = new Boolean('', FALSE);
+        $validator = new Boolean('', [Boolean::OPTION_REQUIRED => FALSE]);
         $this->assertTrue($validator->validate());
 
         $validator = new Boolean('');

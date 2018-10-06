@@ -5,14 +5,10 @@ namespace Ekimik\Validators;
 use \Nette\Utils\DateTime;
 
 /**
- * Validator for date
- *
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik/Validators
  */
 class Date extends StringWithSeparator {
-
-    protected $separator = '-';
 
     protected function validateValue(): bool {
         $result = parent::validateValue();
@@ -21,14 +17,12 @@ class Date extends StringWithSeparator {
         }
 
         $val = $this->getValueToValidate();
-        $dateParts = explode($this->separator, $val);
+	$separator = $this->getOption(self::OPTION_SEPARATOR);
+        $dateParts = explode($separator, $val);
 
-        $result = $this->isNumericPartsValid(
-                $dateParts, mb_substr_count($this->getValueToValidate(), $this->separator) + 1
-        );
-
-        if ($result) {
-            try {
+        $result = $this->isNumericPartsValid($dateParts, mb_substr_count($val, $separator) + 1);
+	if ($result) {
+	    try {
                 $foo = DateTime::from($val);
                 $result = TRUE;
             } catch (\Exception $e) {
@@ -37,6 +31,13 @@ class Date extends StringWithSeparator {
         }
 
         return $result;
+    }
+
+    protected function getDefaultOptions(): array {
+	$options = parent::getDefaultOptions();
+	$options[self::OPTION_SEPARATOR] = '-';
+
+	return $options;
     }
 
 }

@@ -3,8 +3,6 @@
 namespace Ekimik\Validators;
 
 /**
- * Interface for all validators
- *
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik/Validators
  */

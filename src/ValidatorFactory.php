@@ -25,43 +25,38 @@ class ValidatorFactory {
     /**
      * @param string $name
      * @param mixed $valueToValidate
-     * @param bool $valueRequired
-     * @param array $cfgOpts
+     * @param array $options - see concrete validator class OPTIONS_* constants for available options for certain validator
      * @return IValidator
      */
-    public function getValidator(string $name, $valueToValidate, bool $valueRequired = TRUE, array $cfgOpts = []): IValidator {
+    public function create(string $name, $valueToValidate, array $options = []): IValidator {
         $normalizedName = Strings::lower($name);
 
         $validator = NULL;
         if ($normalizedName === self::VALIDATOR_DATE) {
-            $validator = new Date();
+            $validator = new Date($valueToValidate, $options);
         } else if ($normalizedName === self::VALIDATOR_TIME) {
-            $validator = new Time();
+            $validator = new Time($valueToValidate, $options);
         } else if ($normalizedName === self::VALIDATOR_STRING) {
-            $validator = new StringBase();
+            $validator = new StringBase($valueToValidate, $options);
         } else if ($normalizedName === self::VALIDATOR_SCORE) {
-            $validator = new Score();
+            $validator = new Score($valueToValidate, $options);
         } else if ($normalizedName === self::VALIDATOR_SEASON) {
-            $validator = new Season();
+            $validator = new Season($valueToValidate, $options);
         } else if ($normalizedName === self::VALIDATOR_BOOL) {
-            $validator = new Boolean();
+            $validator = new Boolean($valueToValidate, $options);
         } else if ($normalizedName === self::VALIDATOR_URL) {
-            $validator = new Url();
+            $validator = new Url($valueToValidate, $options);
         } else if ($normalizedName === self::VALIDATOR_CSS_SELECTOR) {
-            $validator = new CssSelector();
+            $validator = new CssSelector($valueToValidate, $options);
         } else if ($normalizedName === self::VALIDATOR_ENUM) {
-            $validator = new Enum();
+            $validator = new Enum($valueToValidate, $options);
         } else if ($normalizedName === self::VALIDATOR_DATA_TYPE) {
-            $validator = new DataType();
+            $validator = new DataType($valueToValidate, $options);
 	} else if ($normalizedName === self::VALIDATOR_EMAL) {
-	    $validator = new Email();
+	    $validator = new Email($valueToValidate, $options);
 	} else {
-	    $validator = new Validator();
+	    $validator = new Validator($valueToValidate, $options);
 	}
-
-	$validator->setValueToValidate($valueToValidate);
-        $validator->setRequired($valueRequired);
-        $validator->configureValidator($cfgOpts);
 
         return $validator;
     }

@@ -3,64 +3,25 @@
 namespace Ekimik\Validators;
 
 /**
- * Base validator
- *
  * @author Jan Jíša <j.jisa@seznam.cz>
  * @package Ekimik/Validators
  */
 class Validator implements IValidator {
 
-    /**
-     * @var mixed
-     */
+    const OPTION_REQUIRED = 'required';
+
+    /** @var mixed */
     protected $valueToValidate;
-
-    /**
-     * @var boolean
-     */
-    protected $valueRequired;
+    /** @var array */
+    private $options = [];
 
     /**
      * @param mixed $val
-     * @param boolean $isRequired
+     * @param array $options - see self::OPTIONS_* constants
      */
-    public function __construct($val = NULL, bool $isRequired = TRUE) {
-        $this->setValueToValidate($val);
-        $this->setRequired($isRequired);
-    }
-
-    /**
-     * Set config options, assumes every option has appropriate property on validator
-     * or its parents
-     * @param array $configOptions
-     */
-    public function configureValidator(array $configOptions) {
-        foreach ($configOptions as $option => $value) {
-            if (in_array($option, ['valueToValidate', 'valueRequired'])) {
-                continue;
-            }
-
-	    if (!property_exists($this, $option)) {
-		throw new \InvalidArgumentException("Unknown option '{$option}'");
-	    }
-
-            $this->$option = $value;
-        }
-    }
-
-    /**
-     * @param mixed $val
-     */
-    public function setValueToValidate($val) {
-        $this->valueToValidate = $val;
-    }
-
-    public function setRequired(bool $req) {
-        $this->valueRequired = $req;
-    }
-
-    public function isValueRequired(): bool {
-        return $this->valueRequired;
+    public function __construct($val, array $options = []) {
+	$this->valueToValidate = $val;
+	$this->configureValidator($options);
     }
 
     /**
@@ -80,7 +41,19 @@ class Validator implements IValidator {
         return TRUE;
     }
 
-    public function isNumericPartsValid(array $parts, int $partsExpectedCount): bool {
+    public function getOptions(): array {
+	return $this->options;
+    }
+
+    public function getOption(string $name) {
+	if (!in_array($name, $this->getAvailableOptions())) {
+	    throw new \InvalidArgumentException("Unknown option '{$name}'");
+	}
+
+	return $this->options[$name] ?? NULL;
+    }
+
+    protected function isNumericPartsValid(array $parts, int $partsExpectedCount): bool {
         if (count($parts) !== $partsExpectedCount) {
             return FALSE;
         }
@@ -98,8 +71,43 @@ class Validator implements IValidator {
         return empty($this->getValueToValidate());
     }
 
+    protected function isValueRequired(): bool {
+        return $this->options[self::OPTION_REQUIRED] ?? TRUE;
+    }
+
     protected function validateValue(): bool {
         return TRUE;
+    }
+
+    protected function getDefaultOptions(): array {
+	return [
+	    self::OPTION_REQUIRED => TRUE,
+	];
+    }
+
+    protected function getAvailableOptions(): array {
+	$r = new \ReflectionClass($this);
+	$constants = $r->getConstants();
+	$availableOptions = [];
+	foreach ($constants as $constant => $value) {
+	    if (\Nette\Utils\Strings::startsWith($constant, 'OPTION_')) {
+		$availableOptions[] = $value;
+	    }
+	}
+
+	return $availableOptions;
+    }
+
+    private function configureValidator(array $configOptions) {
+	$options = array_merge($this->getDefaultOptions(), $configOptions);
+	$availableOptions = $this->getAvailableOptions();
+	$diff = array_diff(array_keys($options), $availableOptions);
+	if (!empty($diff)) {
+	    throw new \InvalidArgumentException(sprintf('Unknown options %s', implode('|', $diff)));
+	}
+
+	$this->options = $options;
+	return $this;
     }
 
 }

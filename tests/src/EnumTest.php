@@ -14,22 +14,17 @@ class EnumTest extends \PHPUnit_Framework_TestCase {
      * @covers Enum::validate
      */
     public function testValidate() {
-	$validator = new Enum('foo', TRUE);
-	$validator->configureValidator(['availableOptions' => ['foo', 'bar']]);
+	$validator = new Enum('foo', [Enum::OPTION_OPTIONS => ['foo', 'bar']]);
 	$this->assertTrue($validator->validate());
 
-	$validator = new Enum(123, TRUE);
-	$validator->configureValidator(['availableOptions' => ['foo', 'bar', 123]]);
+	$validator = new Enum(123, [Enum::OPTION_OPTIONS => ['foo', 'bar', 123]]);
 	$this->assertTrue($validator->validate());
 
-	$validator = new Enum('baz', TRUE);
-	$validator->configureValidator(['availableOptions' => ['foo', 'bar']]);
+	$validator = new Enum('baz', [Enum::OPTION_OPTIONS => ['foo', 'bar']]);
 	$this->assertFalse($validator->validate());
 
-	$validator = new Enum(['foo'], TRUE);
-	$validator->configureValidator(['availableOptions' => ['foo', 'bar']]);
+	$validator = new Enum(['foo'], [Enum::OPTION_OPTIONS => ['foo', 'bar']]);
 	$this->assertFalse($validator->validate());
-
     }
 
 }

@@ -2,8 +2,8 @@
 
 namespace Ekimik\Validators;
 
-use \Nette\Utils\Validators,
-    \Nette\Utils\Strings;
+use \Nette\Utils\Validators;
+use \Nette\Utils\Strings;
 
 /**
  * @author Jan Jíša <j.jisa@seznam.cz>
@@ -11,8 +11,7 @@ use \Nette\Utils\Validators,
  */
 class Url extends StringBase {
 
-    protected $fullyQualifiedOnly = TRUE;
-    protected $regExp = NULL;
+    const OPTION_FULLY_QUALIFIED = 'fullyQualified';
 
     protected function validateValue(): bool {
         $result = parent::validateValue();
@@ -21,12 +20,23 @@ class Url extends StringBase {
         }
 
         $val = $this->getValueToValidate();
-
-        if (!$this->fullyQualifiedOnly && !Strings::startsWith($val, 'http') && !Strings::startsWith($val, 'https')) {
+        if (
+		!$this->getOption(self::OPTION_FULLY_QUALIFIED)
+		&& !Strings::startsWith($val, 'http')
+		&& !Strings::startsWith($val, 'https')
+	) {
             $val = "http://{$val}";
         }
 
         return Validators::isUrl($val);
+    }
+
+    protected function getDefaultOptions(): array {
+	$options = parent::getDefaultOptions();
+	$options[self::OPTION_FULLY_QUALIFIED] = TRUE;
+	$options[self::OPTION_REGEXP] = NULL;
+
+	return $options;
     }
 
 }
