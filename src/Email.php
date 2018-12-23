@@ -9,7 +9,7 @@ namespace Ekimik\Validators;
 class Email extends StringBase {
 
     protected function validateValue(): bool {
-	return \Nette\Utils\Validators::isEmail($this->getValueToValidate());
+        return \Nette\Utils\Validators::isEmail($this->getValueToValidate());
     }
 
 }

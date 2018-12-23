@@ -17,10 +17,10 @@ class DateTest extends \PHPUnit\Framework\TestCase {
         $validator = new Date('2016-05-11');
         $this->assertTrue($validator->validate());
 
-	$options = [
-	    Date::OPTION_REQUIRED => FALSE,
-	    Date::OPTION_SEPARATOR => '.',
-	];
+        $options = [
+            Date::OPTION_REQUIRED => FALSE,
+            Date::OPTION_SEPARATOR => '.',
+        ];
         $validator = new Date('15.11.2016', $options);
         $this->assertTrue($validator->validate());
 

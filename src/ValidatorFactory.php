@@ -52,11 +52,11 @@ class ValidatorFactory {
             $validator = new Enum($valueToValidate, $options);
         } else if ($normalizedName === self::VALIDATOR_DATA_TYPE) {
             $validator = new DataType($valueToValidate, $options);
-	} else if ($normalizedName === self::VALIDATOR_EMAL) {
-	    $validator = new Email($valueToValidate, $options);
-	} else {
-	    $validator = new Validator($valueToValidate, $options);
-	}
+        } else if ($normalizedName === self::VALIDATOR_EMAL) {
+            $validator = new Email($valueToValidate, $options);
+        } else {
+            $validator = new Validator($valueToValidate, $options);
+        }
 
         return $validator;
     }

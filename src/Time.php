@@ -18,7 +18,7 @@ class Time extends StringWithSeparator {
         }
 
         $val = $this->getValueToValidate();
-	$separator = $this->getOption(self::OPTION_SEPARATOR);
+        $separator = $this->getOption(self::OPTION_SEPARATOR);
         $timeParts = explode($separator, $val);
 
         $result = $this->isNumericPartsValid($timeParts, mb_substr_count($val, $separator) + 1);
@@ -42,10 +42,10 @@ class Time extends StringWithSeparator {
     }
 
     protected function getDefaultOptions(): array {
-	$options = parent::getDefaultOptions();
-	$options[self::OPTION_SEPARATOR] = ':';
+        $options = parent::getDefaultOptions();
+        $options[self::OPTION_SEPARATOR] = ':';
 
-	return $options;
+        return $options;
     }
 
 }

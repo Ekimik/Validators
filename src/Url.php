@@ -21,10 +21,10 @@ class Url extends StringBase {
 
         $val = $this->getValueToValidate();
         if (
-		!$this->getOption(self::OPTION_FULLY_QUALIFIED)
-		&& !Strings::startsWith($val, 'http')
-		&& !Strings::startsWith($val, 'https')
-	) {
+            !$this->getOption(self::OPTION_FULLY_QUALIFIED)
+            && !Strings::startsWith($val, 'http')
+            && !Strings::startsWith($val, 'https')
+        ) {
             $val = "http://{$val}";
         }
 
@@ -32,11 +32,11 @@ class Url extends StringBase {
     }
 
     protected function getDefaultOptions(): array {
-	$options = parent::getDefaultOptions();
-	$options[self::OPTION_FULLY_QUALIFIED] = TRUE;
-	$options[self::OPTION_REGEXP] = NULL;
+        $options = parent::getDefaultOptions();
+        $options[self::OPTION_FULLY_QUALIFIED] = TRUE;
+        $options[self::OPTION_REGEXP] = NULL;
 
-	return $options;
+        return $options;
     }
 
 }

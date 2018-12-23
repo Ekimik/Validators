@@ -17,12 +17,12 @@ class Date extends StringWithSeparator {
         }
 
         $val = $this->getValueToValidate();
-	$separator = $this->getOption(self::OPTION_SEPARATOR);
+        $separator = $this->getOption(self::OPTION_SEPARATOR);
         $dateParts = explode($separator, $val);
 
         $result = $this->isNumericPartsValid($dateParts, mb_substr_count($val, $separator) + 1);
-	if ($result) {
-	    try {
+        if ($result) {
+            try {
                 $foo = DateTime::from($val);
                 $result = TRUE;
             } catch (\Exception $e) {
@@ -34,10 +34,10 @@ class Date extends StringWithSeparator {
     }
 
     protected function getDefaultOptions(): array {
-	$options = parent::getDefaultOptions();
-	$options[self::OPTION_SEPARATOR] = '-';
+        $options = parent::getDefaultOptions();
+        $options[self::OPTION_SEPARATOR] = '-';
 
-	return $options;
+        return $options;
     }
 
 }

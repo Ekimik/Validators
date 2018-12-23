@@ -17,8 +17,8 @@ class BooleanTest extends \PHPUnit\Framework\TestCase {
         $validator = new Boolean(TRUE);
         $this->assertTrue($validator->validate());
 
-	$validator = new Boolean(FALSE, [Boolean::OPTION_REQUIRED => FALSE]);
-	$this->assertTrue($validator->validate());
+        $validator = new Boolean(FALSE, [Boolean::OPTION_REQUIRED => FALSE]);
+        $this->assertTrue($validator->validate());
 
         $validator = new Boolean(1);
         $this->assertTrue($validator->validate());

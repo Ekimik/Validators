@@ -38,10 +38,10 @@ class TimeTest extends \PHPUnit\Framework\TestCase {
         $validator = new Time('abc:def');
         $this->assertFalse($validator->validate());
 
-	$options = [
-	    Time::OPTION_REQUIRED => FALSE,
-	    Time::OPTION_SEPARATOR => '-',
-	];
+        $options = [
+            Time::OPTION_REQUIRED => FALSE,
+            Time::OPTION_SEPARATOR => '-',
+        ];
         $validator = new Time('11:00-10', $options);
         $this->assertFalse($validator->validate());
 

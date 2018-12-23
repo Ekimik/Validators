@@ -20,8 +20,8 @@ class Validator implements IValidator {
      * @param array $options - see self::OPTIONS_* constants
      */
     public function __construct($val, array $options = []) {
-	$this->valueToValidate = $val;
-	$this->configureValidator($options);
+        $this->valueToValidate = $val;
+        $this->configureValidator($options);
     }
 
     /**
@@ -42,15 +42,15 @@ class Validator implements IValidator {
     }
 
     public function getOptions(): array {
-	return $this->options;
+        return $this->options;
     }
 
     public function getOption(string $name) {
-	if (!in_array($name, $this->getAvailableOptions())) {
-	    throw new \InvalidArgumentException("Unknown option '{$name}'");
-	}
+        if (!in_array($name, $this->getAvailableOptions())) {
+            throw new \InvalidArgumentException("Unknown option '{$name}'");
+        }
 
-	return $this->options[$name] ?? NULL;
+        return $this->options[$name] ?? NULL;
     }
 
     protected function isNumericPartsValid(array $parts, int $partsExpectedCount): bool {
@@ -80,34 +80,34 @@ class Validator implements IValidator {
     }
 
     protected function getDefaultOptions(): array {
-	return [
-	    self::OPTION_REQUIRED => TRUE,
-	];
+        return [
+            self::OPTION_REQUIRED => TRUE,
+        ];
     }
 
     protected function getAvailableOptions(): array {
-	$r = new \ReflectionClass($this);
-	$constants = $r->getConstants();
-	$availableOptions = [];
-	foreach ($constants as $constant => $value) {
-	    if (\Nette\Utils\Strings::startsWith($constant, 'OPTION_')) {
-		$availableOptions[] = $value;
-	    }
-	}
+        $r = new \ReflectionClass($this);
+        $constants = $r->getConstants();
+        $availableOptions = [];
+        foreach ($constants as $constant => $value) {
+            if (\Nette\Utils\Strings::startsWith($constant, 'OPTION_')) {
+                $availableOptions[] = $value;
+            }
+        }
 
-	return $availableOptions;
+        return $availableOptions;
     }
 
     private function configureValidator(array $configOptions) {
-	$options = array_merge($this->getDefaultOptions(), $configOptions);
-	$availableOptions = $this->getAvailableOptions();
-	$diff = array_diff(array_keys($options), $availableOptions);
-	if (!empty($diff)) {
-	    throw new \InvalidArgumentException(sprintf('Unknown options %s', implode('|', $diff)));
-	}
+        $options = array_merge($this->getDefaultOptions(), $configOptions);
+        $availableOptions = $this->getAvailableOptions();
+        $diff = array_diff(array_keys($options), $availableOptions);
+        if (!empty($diff)) {
+            throw new \InvalidArgumentException(sprintf('Unknown options %s', implode('|', $diff)));
+        }
 
-	$this->options = $options;
-	return $this;
+        $this->options = $options;
+        return $this;
     }
 
 }
